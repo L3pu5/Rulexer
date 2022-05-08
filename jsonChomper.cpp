@@ -190,16 +190,16 @@ namespace jsonChomper {
         }
 
         void integer(){
-            // std::cout << "DIGIT";
-            // int _start = currentCharacter;
-            // while( isDigit(peek())) advance();
-            // printf("%d, %d\n", _start, currentCharacter);
-            // //std::string _numbers = input.substr(_start, (currentCharacter - _start));
-            // printf("%s", _numbers.c_str());
-            // int i = std::stoi(_numbers);
-            // int * _ptr = (int *) malloc (sizeof(i));
-            // *_ptr = i;
-            // addToken( Token(STRING, reinterpret_cast<intptr_t>(_ptr)));
+            std::cout << "DIGIT";
+            int _start = currentCharacter;
+            while( isDigit(peek())) advance();
+            printf("%d, %d\n", _start, currentCharacter);
+            std::string _numbers = input.substr(_start, (currentCharacter - _start));
+            //printf("%s", _numbers.c_str());
+            int i = std::stoi(_numbers);
+            int * _ptr = (int *) malloc (sizeof(i));
+            *_ptr = i;
+            addToken( Token(STRING, reinterpret_cast<intptr_t>(_ptr)));
         }
     
         void ReadTokens() {
@@ -270,10 +270,14 @@ namespace jsonChomper {
                 base_expression = ParseObject();
             }
 
-            std::cout << base_expression.expressions.size() <<" " <<  base_expression.expressions[0] << "\n";
-            AssignExpression _object = *(AssignExpression*) base_expression.expressions[0]; 
-            ObjectExpression _right = *(ObjectExpression*) _object.right;
-            std::cout << _object.right->type << " " << _right.expressions.size();
+            // std::cout << base_expression.expressions.size() <<" " <<  base_expression.expressions[0] << "\n";
+            // AssignExpression _object = *(AssignExpression*) base_expression.expressions[0]; 
+            // ObjectExpression _right = *(ObjectExpression*) _object.right;
+            // std::cout << _object.right->type << " " << _right.expressions.size();
+        }
+
+        void Dispose(){
+            //Recursively walk through the Expression table and call Dipose() on all elements.
         }
 
         ObjectExpression ParseObject(){
@@ -397,6 +401,13 @@ namespace jsonChomper {
     };
     //-End TokenReader
 
+
+    //KeyValue Creator
+    struct KeyValueCreator{
+        //The KVC consumes Expressions to create a collection of Keys and values.
+
+
+    };
 
 
     std::string read_file(const char* _filePath){
